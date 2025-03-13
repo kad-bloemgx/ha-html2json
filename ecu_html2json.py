@@ -55,7 +55,6 @@ def main():
     parser = argparse.ArgumentParser(description='Process and collect solar data.')
     parser.add_argument('--file', type=str, help='Path to local HTML file')
     parser.add_argument('--url', type=str, help='URL to fetch the HTML content')
-    parser.add_argument('--ecu_v4', action='store_true', help='Enable ECU v4 parsing mode')
 
     args = parser.parse_args()
 
