@@ -30,6 +30,7 @@ def parse_table(html_content):
     soup = BeautifulSoup(html_content, 'html.parser')
     table = soup.find('table')
 
+
     if table is None:
         print('No table found')
         return None

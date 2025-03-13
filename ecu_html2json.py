@@ -47,7 +47,45 @@ def parse_table(html_content):
 
     return power_data
 
-def save_power_data(power_data):
+def value_generation_of_current_day_greater_or_equal(power_data, file):
+    """Controleer of de opgeslagen waarde groter of gelijk is aan de waarde in de ECU"""
+
+    x = power_data.get("Generation Of Current Day")
+    #print(x)
+
+    with open(file) as json_data:
+        d = json.load(json_data)
+
+    y = d['Generation Of Current Day']
+    #print(y)
+
+    if x >= y:
+        return True
+    else:
+        return False
+
+def print_power_data(power_data):
+
+    """print("Keys and Values:")
+    for key, value in power_data.items():
+            print(f"{key}: {value}") """
+
+    x = power_data.get("Generation Of Current Day")
+    print(x)
+
+    with open(file) as json_data:
+        d = json.load(json_data)
+        #print(d)
+        y = d['Generation Of Current Day']
+        print(y)
+
+    if x >= y:
+        print("valid")
+    else:
+        print("invalid")
+
+def save_power_data(power_data) -> None:
+
     with open('./www/power_data_ecu.json', 'w') as outfile:
         json.dump(power_data, outfile, indent=4)
 
@@ -62,7 +100,14 @@ def main():
     if html_content:
         power_data = parse_table(html_content)
         if power_data:
-            save_power_data(power_data)
+            if value_generation_of_current_day_greater_or_equal(power_data, './www/power_data_ecu.json'):
+
+                save_power_data(power_data)
+
+            else:
+                print("fout")
+                exit()
+
 
 if __name__ == "__main__":
     main()
