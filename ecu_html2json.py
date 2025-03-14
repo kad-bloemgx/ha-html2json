@@ -5,6 +5,7 @@ import json
 import os
 import argparse
 import re
+from pathlib import Path
 
 def clean_value(value, replace_dict, is_temperature=False):
     for key, replacement in replace_dict.items():
@@ -37,8 +38,6 @@ def parse_table(html_content):
     rows = table.find_all('tr')
     power_data = {}
 
-    latest_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
     for row in rows[0:]:
         columns = row.find_all('td')
         if len(columns) == 2:
@@ -47,22 +46,37 @@ def parse_table(html_content):
 
     return power_data
 
+def exist_file_power_data(file):
+
+    filename = Path(file)
+
+    if filename.exists():
+        return True
+    else:
+        return False
+
 def value_generation_of_current_day_greater_or_equal(power_data, file):
     """Controleer of de opgeslagen waarde groter of gelijk is aan de waarde in de ECU"""
 
     x = power_data.get("Generation Of Current Day")
     #print(x)
 
-    with open(file) as json_data:
-        d = json.load(json_data)
+    if exist_file_power_data(file):
 
-    y = d['Generation Of Current Day']
-    #print(y)
+        with open(file) as json_data:
+            d = json.load(json_data)
 
-    if x >= y:
-        return True
+        y = d['Generation Of Current Day']
+        #print(y)
+
+        if x >= y:
+            return True
+        else:
+            return False
+
     else:
-        return False
+
+        return True
 
 def print_power_data(power_data):
 
@@ -72,6 +86,7 @@ def print_power_data(power_data):
 
     x = power_data.get("Generation Of Current Day")
     print(x)
+
 
     with open(file) as json_data:
         d = json.load(json_data)
@@ -86,8 +101,11 @@ def print_power_data(power_data):
 
 def save_power_data(power_data) -> None:
 
-    with open('./www/power_data_ecu.json', 'w') as outfile:
+    with open('./www/power_data_ecu.json', 'w+') as outfile:
         json.dump(power_data, outfile, indent=4)
+
+    with open('./www/power_data_ecu1.json', 'w+') as outfile:
+        json.dump(power_data.get('ECU ID'), outfile, indent=4)
 
 def main():
     parser = argparse.ArgumentParser(description='Process and collect solar data.')
