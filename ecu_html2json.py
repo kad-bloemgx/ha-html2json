@@ -110,7 +110,7 @@ def save_power_data(power_data) -> None:
         json.dump(outfile, power_data, indent=4)
 
     with open('./www/power_data_ecu1.json', 'w+') as outfile:
-        json.dump(outfile, power_data.get('ECU ID'), indent=4)
+        json.dump(outfile, power_data.get('ECU ID'))
 
 
 
