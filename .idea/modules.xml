@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ha_html2json.iml" filepath="$PROJECT_DIR$/ha_html2json.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ha-html2json.iml" filepath="$PROJECT_DIR$/ha-html2json.iml" />
     </modules>
   </component>
 </project>
