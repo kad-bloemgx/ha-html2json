@@ -1,5 +1,3 @@
-from typing import TextIO
-
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -109,7 +107,7 @@ def print_power_data(power_data):
 def save_power_data(power_data) -> None:
 
     with open('./www/power_data_ecu.json', 'w+') as outfile:
-        json.dump(power_data, outfile, indent=4)
+        json.dump(outfile, power_data, indent=4)
 
     with open('./www/power_data_ecu1.json', 'w+') as outfile:
         json.dump(power_data.get('ECU ID'), outfile, indent=4)
