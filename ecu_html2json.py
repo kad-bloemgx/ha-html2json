@@ -112,6 +112,8 @@ def save_power_data(power_data) -> None:
     with open('./www/power_data_ecu1.json', 'w+') as outfile:
         json.dump(outfile, power_data.get('ECU ID'), indent=4)
 
+
+
 def main():
     parser = argparse.ArgumentParser(description='Process and collect solar data.')
     parser.add_argument('--file', type=str, help='Path to local HTML file')
