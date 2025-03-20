@@ -117,7 +117,6 @@ def main():
     parser.add_argument('--file', type=str, help='Path to local HTML file')
     parser.add_argument('--url', type=str, help='URL to fetch the HTML content')
 
-
     args = parser.parse_args()
 
     html_content = get_html_content(args.file, args.url)
