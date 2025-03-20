@@ -1,3 +1,5 @@
+from typing import TextIO
+
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -8,7 +10,8 @@ from pathlib import Path
 """ 
 1. get_html_content     # scrape table from ECU
 2. parse_table          # parse table to JSON document
-3. save_power_data      # save JSON document to file
+3. clean_value          # filter van de data
+4. save_power_data      # save JSON document to file
 """
 
 def clean_value(value, replace_dict, is_temperature=False):
