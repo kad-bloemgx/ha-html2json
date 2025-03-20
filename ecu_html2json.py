@@ -1,11 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime
 import json
 import os
 import argparse
 import re
 from pathlib import Path
+""" 
+1. get_html_content     # scrape table from ECU
+2. parse_table          # parse table to JSON document
+3. save_power_data      # save JSON document to file
+"""
 
 def clean_value(value, replace_dict, is_temperature=False):
     for key, replacement in replace_dict.items():
@@ -88,7 +92,7 @@ def print_power_data(power_data):
     print(x)
 
 
-    with open(file) as json_data:
+    with open(power_data) as json_data:
         d = json.load(json_data)
         #print(d)
         y = d['Generation Of Current Day']
@@ -118,13 +122,13 @@ def main():
     if html_content:
         power_data = parse_table(html_content)
         if power_data:
-            if value_generation_of_current_day_greater_or_equal(power_data, './www/power_data_ecu.json'):
+            # if value_generation_of_current_day_greater_or_equal(power_data, './www/power_data_ecu.json'):
 
                 save_power_data(power_data)
 
-            else:
-                print("fout")
-                exit()
+            #else:
+                #print("fout")
+                #exit()
 
 
 if __name__ == "__main__":
